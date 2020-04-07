@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<GridPane alignment="center" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1"
+          xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="com.epsi.msprjava.controler.Controller">
+    <columnConstraints>
+        <ColumnConstraints/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+    </rowConstraints>
+    <children>
+        <Pane prefHeight="253.0" prefWidth="427.0">
+            <children>
+                <Label layoutX="40.0" layoutY="118.0" text="Utilisateur"/>
+                <Label layoutX="30.0" layoutY="155.0" prefHeight="17.0" prefWidth="74.0" text="Mot de passe"/>
+                <TextField layoutX="114.0" layoutY="114.0" prefHeight="25.0" prefWidth="216.0"/>
+                <PasswordField layoutX="114.0" layoutY="151.0" prefHeight="25.0" prefWidth="216.0"/>
+                <Button layoutX="177.0" layoutY="198.0" mnemonicParsing="false" text="Connexion"/>
+                <Label layoutX="163.0" layoutY="38.0" text="RECYCL">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </children>
+</GridPane>
