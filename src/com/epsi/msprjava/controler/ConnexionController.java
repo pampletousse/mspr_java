@@ -1,6 +1,7 @@
 package com.epsi.msprjava.controler;
 
 import com.epsi.msprjava.Main;
+import com.epsi.msprjava.model.Profil;
 import com.epsi.msprjava.model.User;
 import com.epsi.msprjava.scenes.Dashboard;
 import javafx.event.ActionEvent;
@@ -44,7 +45,8 @@ public class ConnexionController {
 
         if (user.equals("user") && pass.equals("pass")) {
             System.out.println("connected");
-            User u = new User(user, pass);
+            Profil profil = new Profil(1, "admin");
+            User u = new User(user, pass, profil);
             dashboard = new Dashboard(u);
             Stage stage = (Stage) btnConnexion.getScene().getWindow();
             DashboardController.start(stage);

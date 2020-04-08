@@ -4,10 +4,12 @@ public class User {
 
     private String username;
     private String password;
+    private Profil profil;
 
-    public User(String username, String password) {
+    public User(String username, String password, Profil profil) {
         this.username = username;
         this.password = password;
+        this.profil = profil;
     }
 
     public String getUsername() {
@@ -16,5 +18,9 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public Profil getProfil() {
+        return profil;
     }
 }
