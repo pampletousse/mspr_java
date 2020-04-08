@@ -26,9 +26,6 @@ public class ConnexionController {
     private TextField stringPass;
 
     @FXML
-    private Dashboard dashboard;
-
-    @FXML
     private Button btnConnexion;
 
     @FXML
@@ -43,16 +40,22 @@ public class ConnexionController {
         System.out.println(user);
         System.out.println(pass);
 
-        if (user.equals("user") && pass.equals("pass")) {
+        if (checkUser(user, pass)) {
             System.out.println("connected");
             Profil profil = new Profil(1, "admin");
             User u = new User(user, pass, profil);
-            dashboard = new Dashboard(u);
             Stage stage = (Stage) btnConnexion.getScene().getWindow();
             DashboardController.start(stage);
         } else {
-            //labelError.setText("Erreur");
             System.out.println("erreur");
+        }
+    }
+
+    public boolean checkUser(String user, String pass) {
+        if (user.equals("user") && pass.equals("pass")) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
