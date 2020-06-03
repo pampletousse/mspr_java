@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Mise en place frame de connexion:labels,inputs,btns">
-      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Ajout c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/mspr_java/com/epsi/msprjava/controler/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/mspr_java/com/epsi/msprjava/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/mspr_java/com/epsi/msprjava/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,8 +61,7 @@
     <breakpoint_rules converted="true" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FavoritesManager">
     <favorites_list name="JavaFxApplication" />
@@ -74,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
+            <state relative-caret-position="204">
               <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -83,14 +80,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="51" selection-start-line="51" selection-end-line="51" selection-end-column="43" />
+            <state relative-caret-position="-289">
+              <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/model/Profil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -98,14 +104,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state relative-caret-position="221">
+              <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#162#163#0" expanded="true" />
-                <element signature="e#193#194#0" expanded="true" />
-                <element signature="e#445#446#0" expanded="true" />
-                <element signature="e#480#481#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,19 +115,19 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml">
+          <provider editor-type-id="JavaFX-Scene-Builder" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="238">
+              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+            <state relative-caret-position="204">
+              <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,16 +135,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+            <state relative-caret-position="340">
+              <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
               <folding>
-                <element signature="e#146#147#0" expanded="true" />
-                <element signature="e#177#178#0" expanded="true" />
-                <element signature="e#212#213#0" expanded="true" />
-                <element signature="e#243#244#0" expanded="true" />
+                <element signature="e#411#412#0" expanded="true" />
+                <element signature="e#442#443#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -150,12 +150,12 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="26" column="39" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="39" />
+          <provider editor-type-id="JavaFX-Scene-Builder" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
             </state>
           </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
         </entry>
       </file>
     </leaf>
@@ -183,18 +183,19 @@
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/Controller.java" />
         <option value="$PROJECT_DIR$/.gitingore" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/Controller.java" />
-        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml" />
-        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/model/Profil.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml" />
-        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/Main.java" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1460" />
@@ -241,7 +242,7 @@
               <item name="mspr_java" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="msprjava" type="462c0819:PsiDirectoryNode" />
-              <item name="scenes" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mspr_java" type="b2602c69:ProjectViewProjectNode" />
@@ -376,7 +377,16 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
       <workItem from="1586249344392" duration="1340000" />
-      <workItem from="1586250708395" duration="10855000" />
+      <workItem from="1586250708395" duration="11103000" />
+      <workItem from="1586267164650" duration="604000" />
+      <workItem from="1586345127100" duration="4046000" />
+      <workItem from="1586353388205" duration="2994000" />
+      <workItem from="1586415696525" duration="2115000" />
+      <workItem from="1587563184999" duration="5000" />
+      <workItem from="1588334258107" duration="1890000" />
+      <workItem from="1588584697447" duration="733000" />
+      <workItem from="1588838497808" duration="673000" />
+      <workItem from="1591166514541" duration="2178000" />
     </task>
     <task id="LOCAL-00001" summary="Mise en place structure projet JavaFX">
       <created>1586251576670</created>
@@ -392,17 +402,44 @@
       <option name="project" value="LOCAL" />
       <updated>1586255359929</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Ajout Modele User + ConnexionController + frame Dashboard (Scene +Controller) - jeu de test pour la connexion user,pass">
+      <created>1586265823566</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1586265823566</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Ajout de UserController pour la connexion avec user password">
+      <created>1586345702971</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1586345702971</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Ajout classe Profil et modification User et Connexion Test">
+      <created>1586348832749</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1586348832749</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Extrernalisation fonction check User">
+      <created>1586349761965</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1586349761965</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13497000" />
+    <option name="totallyTimeSpent" value="28983000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1460" height="876" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.17357142" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.1969914" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -411,13 +448,13 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33109018" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33109018" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39973083" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32974428" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32974428" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
@@ -447,7 +484,11 @@
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
     <MESSAGE value="Mise en place structure projet JavaFX" />
     <MESSAGE value="Mise en place frame de connexion:labels,inputs,btns" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mise en place frame de connexion:labels,inputs,btns" />
+    <MESSAGE value="Ajout Modele User + ConnexionController + frame Dashboard (Scene +Controller) - jeu de test pour la connexion user,pass" />
+    <MESSAGE value="Ajout de UserController pour la connexion avec user password" />
+    <MESSAGE value="Ajout classe Profil et modification User et Connexion Test" />
+    <MESSAGE value="Extrernalisation fonction check User" />
+    <option name="LAST_COMMIT_MESSAGE" value="Extrernalisation fonction check User" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -482,19 +523,6 @@
     <entry file="file://$PROJECT_DIR$/mspr_java.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="33" lean-forward="true" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-          <folding>
-            <element signature="e#146#147#0" expanded="true" />
-            <element signature="e#177#178#0" expanded="true" />
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#243#244#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitingore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="371">
@@ -502,18 +530,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="26" column="39" selection-start-line="26" selection-start-column="27" selection-end-line="26" selection-end-column="39" />
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="29" selection-start-line="2" selection-start-column="29" selection-end-line="2" selection-end-column="29" />
         </state>
       </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+        <state relative-caret-position="204">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -522,42 +549,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/scenes/Dashboard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state relative-caret-position="221">
+          <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#162#163#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#445#446#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/views/connexion.fxml">
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/views/dashboard.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
       <provider editor-type-id="JavaFX-Scene-Builder" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="51" selection-start-line="51" selection-end-line="51" selection-end-column="43" />
+        <state relative-caret-position="-289">
+          <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/model/Profil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
+          <folding>
+            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#442#443#0" expanded="true" />
           </folding>
         </state>
       </provider>

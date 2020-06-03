@@ -1,5 +1,6 @@
 package com.epsi.msprjava.scenes;
 
+import com.epsi.msprjava.controler.DashboardController;
 import com.epsi.msprjava.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,19 +11,10 @@ import javafx.stage.Stage;
 
 public class Dashboard {
 
-    @FXML
-    private Label labelWelcome;
+    private DashboardController controler;
 
     private User user;
 
-    public Dashboard(User user) {
-        this.user = user;
-    }
-
-    @FXML
-    public void initialize() {
-        labelWelcome.setText("AHOJ");
-    }
 
     public static void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(Dashboard.class.getResource("../views/dashboard.fxml"));

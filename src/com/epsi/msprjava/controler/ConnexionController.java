@@ -31,7 +31,6 @@ public class ConnexionController {
     @FXML
     private Label labelError;
 
-    @FXML
     public void clickConnexion(ActionEvent actionEvent) throws Exception {
 
         String user = stringUser.getText();
@@ -45,7 +44,8 @@ public class ConnexionController {
             Profil profil = new Profil(1, "admin");
             User u = new User(user, pass, profil);
             Stage stage = (Stage) btnConnexion.getScene().getWindow();
-            DashboardController.start(stage);
+            DashboardController dashControl = new DashboardController();
+            dashControl.start(stage);
         } else {
             System.out.println("erreur");
         }

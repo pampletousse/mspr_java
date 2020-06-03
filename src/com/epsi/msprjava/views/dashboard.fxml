@@ -12,6 +12,6 @@
                 <Font size="32.0"/>
             </font>
         </Label>
-        <Label layoutX="273.0" layoutY="94.0" text="Bienvenue"/>
+        <Label fx:id="labelWelcome" layoutX="273.0" layoutY="94.0" text="Bienvenue"/>
     </children>
 </AnchorPane>
