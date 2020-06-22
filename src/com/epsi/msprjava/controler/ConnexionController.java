@@ -1,6 +1,6 @@
 package com.epsi.msprjava.controler;
 
-import com.epsi.msprjava.bdd.Connexion;
+import com.epsi.msprjava.bdd.OracleConnexion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -37,8 +37,8 @@ public class ConnexionController {
         System.out.println(pass);
 
         if (checkUser(user, pass)) {
-            Connexion connexion = new Connexion();
-            connexion.connect();
+            OracleConnexion oracleConnexion = new OracleConnexion();
+            oracleConnexion.connect();
 
 
             //System.out.println("connected");
