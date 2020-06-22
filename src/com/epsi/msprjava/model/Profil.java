@@ -1,20 +1,38 @@
 package com.epsi.msprjava.model;
 
+import java.util.Objects;
+
 public class Profil {
+    private Short idProfil;
+    private String nomprofil;
 
-    private int id;
-    private String nom;
-
-    public Profil(int id, String nom) {
-        this.id = id;
-        this.nom = nom;
+    public Short getIdProfil() {
+        return idProfil;
     }
 
-    public int getId() {
-        return id;
+    public void setIdProfil(Short idProfil) {
+        this.idProfil = idProfil;
     }
 
-    public String getNom() {
-        return nom;
+    public String getNomprofil() {
+        return nomprofil;
+    }
+
+    public void setNomprofil(String nomprofil) {
+        this.nomprofil = nomprofil;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Profil profil = (Profil) o;
+        return Objects.equals(idProfil, profil.idProfil) &&
+                Objects.equals(nomprofil, profil.nomprofil);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idProfil, nomprofil);
     }
 }

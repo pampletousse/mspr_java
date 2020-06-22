@@ -13,14 +13,18 @@ public class DashboardController {
     @FXML
     private Label labelWelcome;
 
+    public DashboardController() {
+
+    }
+
     public void start(Stage window) throws Exception {
         //Dashboard.start(window);
         Parent root = FXMLLoader.load(Dashboard.class.getResource("../views/dashboard.fxml"));
         Scene scene = new Scene(root, 800, 700);
         window.setScene(scene);
         window.show();
-        labelWelcome.setText("AHOJ");
+/*        labelWelcome.setText("AHOJ");
         labelWelcome.setText("fdsf");
-        System.out.println(labelWelcome.getLabelFor());
+        System.out.println(labelWelcome.getLabelFor());*/
     }
 }
