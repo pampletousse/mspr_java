@@ -14,9 +14,9 @@ public class OracleConnexion {
                     "jdbc:oracle:thin:@localhost:1521:xe", "RECYCLE", "pass");
 
             if (connexion != null) {
-                System.out.println("Connected");
+                System.out.println("Connected to database");
             } else {
-                System.out.println("Not connected");
+                System.out.println("Error connecting to database");
             }
             return connexion;
 
