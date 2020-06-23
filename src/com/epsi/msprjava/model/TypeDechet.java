@@ -3,15 +3,15 @@ package com.epsi.msprjava.model;
 import java.util.Objects;
 
 public class TypeDechet {
-    private Byte idTypeDechet;
+    private int idTypeDechet;
     private String nom;
     private Boolean nivDanger;
 
-    public Byte getIdTypeDechet() {
+    public int getIdTypeDechet() {
         return idTypeDechet;
     }
 
-    public void setIdTypeDechet(Byte idTypeDechet) {
+    public void setIdTypeDechet(int idTypeDechet) {
         this.idTypeDechet = idTypeDechet;
     }
 

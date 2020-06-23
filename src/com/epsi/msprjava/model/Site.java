@@ -3,18 +3,18 @@ package com.epsi.msprjava.model;
 import java.util.Objects;
 
 public class Site {
-    private Byte idSite;
+    private int idSite;
     private String nomsite;
-    private Byte noruesite;
+    private int noruesite;
     private String ruesite;
     private Short cpostalsite;
     private String villesite;
 
-    public Byte getIdSite() {
+    public int getIdSite() {
         return idSite;
     }
 
-    public void setIdSite(Byte idSite) {
+    public void setIdSite(int idSite) {
         this.idSite = idSite;
     }
 
@@ -26,11 +26,11 @@ public class Site {
         this.nomsite = nomsite;
     }
 
-    public Byte getNoruesite() {
+    public int getNoruesite() {
         return noruesite;
     }
 
-    public void setNoruesite(Byte noruesite) {
+    public void setNoruesite(int noruesite) {
         this.noruesite = noruesite;
     }
 

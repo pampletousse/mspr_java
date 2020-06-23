@@ -9,7 +9,7 @@ public class Demande {
     private Time dateenlevement;
     private Long siret;
     private Long idTournee;
-    private Byte idSite;
+    private int idSite;
 
     public Long getIddemande() {
         return iddemande;
@@ -51,11 +51,11 @@ public class Demande {
         this.idTournee = idTournee;
     }
 
-    public Byte getIdSite() {
+    public int getIdSite() {
         return idSite;
     }
 
-    public void setIdSite(Byte idSite) {
+    public void setIdSite(int idSite) {
         this.idSite = idSite;
     }
 

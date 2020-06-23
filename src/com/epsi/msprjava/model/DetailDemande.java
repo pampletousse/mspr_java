@@ -3,16 +3,16 @@ package com.epsi.msprjava.model;
 import java.util.Objects;
 
 public class DetailDemande {
-    private Byte quantiteEnlevee;
+    private Long quantiteEnlevee;
     private String remarque;
     private Long idDemande;
-    private Byte idTypeDechet;
+    private int idTypeDechet;
 
-    public Byte getQuantiteEnlevee() {
+    public Long getQuantiteEnlevee() {
         return quantiteEnlevee;
     }
 
-    public void setQuantiteEnlevee(Byte quantiteEnlevee) {
+    public void setQuantiteEnlevee(Long quantiteEnlevee) {
         this.quantiteEnlevee = quantiteEnlevee;
     }
 
@@ -32,7 +32,7 @@ public class DetailDemande {
         this.idDemande = idDemande;
     }
 
-    public Byte getIdTypeDechet() {
+    public int getIdTypeDechet() {
         return idTypeDechet;
     }
 

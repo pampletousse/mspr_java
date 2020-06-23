@@ -50,9 +50,18 @@ public class DashboardController {
             stmt.setDate(1, date);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                //rs.getString()
+                Demande d = new Demande();
+                /*d.setIddemande();
+                d.setDatedemande();
+                d.setDateenlevement();
+                d.setIdSite();
+                d.setIdTournee();
+                d.setSiret();
+                //rs.getString()*/
+                listedemandes.add(d);
             }
             connexion.close();
+            return listedemandes;
         } catch (Exception e) {
             e.printStackTrace();
         }

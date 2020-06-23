@@ -10,7 +10,8 @@ public class Employe {
     private Time datenaiss;
     private Time dateembauche;
     private Long salaire;
-    private Byte idProfil;
+    private String motpass;
+    private int idProfil;
 
     public Short getIdEmploye() {
         return idEmploye;
@@ -60,12 +61,20 @@ public class Employe {
         this.salaire = salaire;
     }
 
-    public Byte getIdProfil() {
+    public int getIdProfil() {
         return idProfil;
     }
 
-    public void setIdProfil(Byte idProfil) {
+    public void setIdProfil(int idProfil) {
         this.idProfil = idProfil;
+    }
+
+    public String getMotpass() {
+        return motpass;
+    }
+
+    public void setMotpass(String motpass) {
+        this.motpass = motpass;
     }
 
     @Override

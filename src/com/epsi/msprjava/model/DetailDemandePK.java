@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class DetailDemandePK implements Serializable {
     private Long idDemande;
-    private Byte idTypeDechet;
+    private int idTypeDechet;
 
     public Long getIdDemande() {
         return idDemande;
@@ -15,11 +15,11 @@ public class DetailDemandePK implements Serializable {
         this.idDemande = idDemande;
     }
 
-    public Byte getIdTypeDechet() {
+    public int getIdTypeDechet() {
         return idTypeDechet;
     }
 
-    public void setIdTypeDechet(Byte idTypeDechet) {
+    public void setIdTypeDechet(int idTypeDechet) {
         this.idTypeDechet = idTypeDechet;
     }
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Entreprise {
     private Long siret;
     private String raisonsociale;
-    private Byte norueentr;
+    private int norueentr;
     private String rueentr;
     private Short cpostalentr;
     private String villeentr;
@@ -30,11 +30,11 @@ public class Entreprise {
         this.raisonsociale = raisonsociale;
     }
 
-    public Byte getNorueentr() {
+    public int getNorueentr() {
         return norueentr;
     }
 
-    public void setNorueentr(Byte norueentr) {
+    public void setNorueentr(int norueentr) {
         this.norueentr = norueentr;
     }
 

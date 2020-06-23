@@ -4,32 +4,32 @@ import java.util.Objects;
 
 public class Stockage {
 
-    private Byte idStockage;
-    private Byte espacestockage;
-    private Byte idTypeDechet;
+    private int idStockage;
+    private Long espacestockage;
+    private int idTypeDechet;
     private Long siret;
 
-    public Byte getIdStockage() {
+    public int getIdStockage() {
         return idStockage;
     }
 
-    public void setIdStockage(Byte idStockage) {
+    public void setIdStockage(int idStockage) {
         this.idStockage = idStockage;
     }
 
-    public Byte getEspacestockage() {
+    public Long getEspacestockage() {
         return espacestockage;
     }
 
-    public void setEspacestockage(Byte espacestockage) {
+    public void setEspacestockage(Long espacestockage) {
         this.espacestockage = espacestockage;
     }
 
-    public Byte getIdTypeDechet() {
+    public int getIdTypeDechet() {
         return idTypeDechet;
     }
 
-    public void setIdTypeDechet(Byte idTypeDechet) {
+    public void setIdTypeDechet(int idTypeDechet) {
         this.idTypeDechet = idTypeDechet;
     }
 

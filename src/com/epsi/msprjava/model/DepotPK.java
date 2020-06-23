@@ -5,8 +5,8 @@ import java.util.Objects;
 
 public class DepotPK implements Serializable {
     private Long idTournee;
-    private Byte idTypeDechet;
-    private Byte idEntreprise;
+    private int idTypeDechet;
+    private int idEntreprise;
 
     public Long getIdTournee() {
         return idTournee;
@@ -16,7 +16,7 @@ public class DepotPK implements Serializable {
         this.idTournee = idTournee;
     }
 
-    public Byte getIdTypeDechet() {
+    public int getIdTypeDechet() {
         return idTypeDechet;
     }
 
@@ -24,7 +24,7 @@ public class DepotPK implements Serializable {
         this.idTypeDechet = idTypeDechet;
     }
 
-    public Byte getIdEntreprise() {
+    public int getIdEntreprise() {
         return idEntreprise;
     }
 
