@@ -11,7 +11,7 @@ public class OracleConnexion {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             Connection connexion = DriverManager.getConnection(
-                    "jdbc:oracle:thin:@localhost:1521:xe", "RECYCL", "password");
+                    "jdbc:oracle:thin:@localhost:1521:xe", "RECYCLE", "pass");
 
             if (connexion != null) {
                 System.out.println("Connected");
