@@ -5,6 +5,7 @@ import com.epsi.msprjava.model.Demande;
 import com.epsi.msprjava.model.Employe;
 import com.epsi.msprjava.model.TypeDechet;
 import com.epsi.msprjava.scenes.Dashboard;
+import com.epsi.msprjava.viewmodel.DechetsEnleves;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.net.Proxy;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -36,9 +38,12 @@ public class DashboardController {
         Scene scene = new Scene(root, 800, 700);
         window.setScene(scene);
         window.show();
-/*        labelWelcome.setText("AHOJ");
+/*      labelWelcome.setText("AHOJ");
         labelWelcome.setText("fdsf");
         System.out.println(labelWelcome.getLabelFor());*/
+
+        // test fonctions
+
     }
 
     // Récupération des demandes après une date donnée
@@ -51,13 +56,12 @@ public class DashboardController {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Demande d = new Demande();
-                /*d.setIddemande();
-                d.setDatedemande();
-                d.setDateenlevement();
-                d.setIdSite();
-                d.setIdTournee();
-                d.setSiret();
-                //rs.getString()*/
+                d.setIddemande(rs.getLong(1));
+                d.setDatedemande(rs.getTime(2));
+                d.setDateenlevement(rs.getTime(3));
+                d.setIdSite(rs.getInt(4));
+                d.setIdTournee(rs.getLong(5));
+                d.setSiret(rs.getLong(6));
                 listedemandes.add(d);
             }
             connexion.close();
@@ -69,18 +73,28 @@ public class DashboardController {
     }
 
     // Récupération de la quantité totale de déchet par type pour une période donnée
-    public List<TypeDechet> getQteTotaleDechetByDate(Date date) {
+    public DechetsEnleves getQteTotaleDechetByDate(Date date) {
         try {
             Connection connexion = oracleConnexion.connect();
-            PreparedStatement stmt = connexion.prepareStatement("select * from detail_demande dd inner join demande d on dd.id_demande = d.id_demande inner join type_dechet td on td.id_type_dechet = dd.id_type_dechet where d.datedemande < ? and d.datedemande > ? GROUP BY td.id_type_dechet");
+            PreparedStatement stmt = connexion.prepareStatement("select dd.id_type_dechet, SUM(quantite_enlevee) from detail_demande dd " +
+                    "inner join demande d on dd.id_demande = d.id_demande " +
+                    "inner join type_dechet td on dd.id_type_dechet  = td.id_type_dechet " +
+                    "where d.datedemande between ? and ? " +
+                    "group by dd.id_type_dechet");
             stmt.setDate(1, date);
             stmt.setDate(2, date);
             ResultSet rs = stmt.executeQuery();
+            DechetsEnleves dechetsEnleves = new DechetsEnleves();
+            while (rs.next()) {
+                TypeDechet td = getTypeDechetById(rs.getInt(1));
+                dechetsEnleves.getMapDechetsEnleves().put(td, rs.getLong(2));
+            }
             connexion.close();
+            return dechetsEnleves;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
     // Récupération des demandes non affectées à une tournée
@@ -137,5 +151,26 @@ public class DashboardController {
 
     // Affectation des tournées
     public void affectTournees() {
+    }
+
+    public TypeDechet getTypeDechetById(int idTypeDechet) {
+        try {
+            Connection connexion = oracleConnexion.connect();
+            PreparedStatement stmt = connexion.prepareStatement("select * from type_dechet where id_type_dechet = ?");
+            stmt.setInt(1, idTypeDechet);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                TypeDechet td = new TypeDechet();
+                td.setIdTypeDechet(rs.getInt(1));
+                td.setNivDanger(rs.getBoolean(2));
+                td.setNom(rs.getString(3));
+                return td;
+            }
+            connexion.close();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
