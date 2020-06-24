@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Modification de la méthode de connexion check user -&gt; check user dans la bdd">
-      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/DechetsEnleves.java" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="WIP Inmplementation des fonctions du Dashboard + Ajout classe view Model DechetsEnleves + suppression userController">
+      <change afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/EntrepriseTourneeQteByDemande.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/epsi/msprjava/controler/UserController.java" beforeDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -94,10 +93,32 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="-1269">
+              <caret line="134" column="42" lean-forward="true" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/EntrepriseTourneeQteByDemande.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="594">
+              <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#607#608#0" expanded="true" />
+                <element signature="e#653#654#0" expanded="true" />
+                <element signature="e#836#837#0" expanded="true" />
+                <element signature="e#866#867#0" expanded="true" />
+                <element signature="e#913#914#0" expanded="true" />
+                <element signature="e#951#952#0" expanded="true" />
+                <element signature="e#1000#1001#0" expanded="true" />
+                <element signature="e#1037#1038#0" expanded="true" />
+                <element signature="e#1105#1106#0" expanded="true" />
+                <element signature="e#1157#1158#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -146,7 +167,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/DechetsEnleves.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1100">
-              <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+              <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -228,6 +249,7 @@
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/bdd/OracleConnexion.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/ConnexionController.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/DechetsEnleves.java" />
+        <option value="$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/EntrepriseTourneeQteByDemande.java" />
         <option value="$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java" />
       </list>
     </option>
@@ -489,7 +511,7 @@
       <workItem from="1592898416518" duration="38000" />
       <workItem from="1592898516550" duration="6009000" />
       <workItem from="1592925773786" duration="5314000" />
-      <workItem from="1592973276282" duration="251000" />
+      <workItem from="1592973276282" duration="4814000" />
     </task>
     <task id="LOCAL-00001" summary="Mise en place structure projet JavaFX">
       <created>1586251576670</created>
@@ -575,11 +597,18 @@
       <option name="project" value="LOCAL" />
       <updated>1592931663852</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="WIP Inmplementation des fonctions du Dashboard + Ajout classe view Model DechetsEnleves + suppression userController">
+      <created>1592973811281</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1592973811281</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68594000" />
+    <option name="totallyTimeSpent" value="73157000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -592,9 +621,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.57028115" visible="true" weight="0.14254703" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.57028115" visible="true" weight="0.14254703" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" />
       <window_info id="Designer" order="3" />
@@ -610,7 +638,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32974428" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="8" visible="true" weight="0.29986054" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.29986054" />
       <window_info anchor="bottom" id="Problems" order="9" />
       <window_info anchor="bottom" id="Changes" order="10" />
       <window_info anchor="bottom" id="Profiler" order="11" />
@@ -730,7 +758,8 @@
     <MESSAGE value="WIP Implementation fonctions de récupération de donnée + modification vars oracleConnexion" />
     <MESSAGE value="modification des types de données champs des pojos" />
     <MESSAGE value="Modification de la méthode de connexion check user -&gt; check user dans la bdd" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modification de la méthode de connexion check user -&gt; check user dans la bdd" />
+    <MESSAGE value="WIP Inmplementation des fonctions du Dashboard + Ajout classe view Model DechetsEnleves + suppression userController" />
+    <option name="LAST_COMMIT_MESSAGE" value="WIP Inmplementation des fonctions du Dashboard + Ajout classe view Model DechetsEnleves + suppression userController" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1010,7 +1039,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/DechetsEnleves.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1100">
-          <caret line="74" column="51" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+          <caret line="74" column="52" selection-start-line="74" selection-start-column="52" selection-end-line="74" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1028,10 +1057,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/viewmodel/EntrepriseTourneeQteByDemande.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#607#608#0" expanded="true" />
+            <element signature="e#653#654#0" expanded="true" />
+            <element signature="e#836#837#0" expanded="true" />
+            <element signature="e#866#867#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+            <element signature="e#951#952#0" expanded="true" />
+            <element signature="e#1000#1001#0" expanded="true" />
+            <element signature="e#1037#1038#0" expanded="true" />
+            <element signature="e#1105#1106#0" expanded="true" />
+            <element signature="e#1157#1158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/epsi/msprjava/controler/DashboardController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        <state relative-caret-position="-1269">
+          <caret line="134" column="42" lean-forward="true" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
