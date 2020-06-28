@@ -7,8 +7,9 @@ public class Demande {
     private Long iddemande;
     private Time datedemande;
     private Time dateenlevement;
-    private Long siret;
+    private int idEntreprise;
     private Long idTournee;
+    private String webON;
     private int idSite;
 
     public Long getIddemande() {
@@ -35,12 +36,12 @@ public class Demande {
         this.dateenlevement = dateenlevement;
     }
 
-    public Long getSiret() {
-        return siret;
+    public int getIdEntreprise() {
+        return idEntreprise;
     }
 
-    public void setSiret(Long siret) {
-        this.siret = siret;
+    public void setIdEntreprise(int idEntreprise) {
+        this.idEntreprise = idEntreprise;
     }
 
     public Long getIdTournee() {
@@ -51,6 +52,14 @@ public class Demande {
         this.idTournee = idTournee;
     }
 
+    public String getWebON() {
+        return webON;
+    }
+
+    public void setWebON(String webON) {
+        this.webON = webON;
+    }
+
     public int getIdSite() {
         return idSite;
     }
@@ -59,21 +68,5 @@ public class Demande {
         this.idSite = idSite;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Demande demande = (Demande) o;
-        return Objects.equals(iddemande, demande.iddemande) &&
-                Objects.equals(datedemande, demande.datedemande) &&
-                Objects.equals(dateenlevement, demande.dateenlevement) &&
-                Objects.equals(siret, demande.siret) &&
-                Objects.equals(idTournee, demande.idTournee) &&
-                Objects.equals(idSite, demande.idSite);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(iddemande, datedemande, dateenlevement, siret, idTournee, idSite);
-    }
 }

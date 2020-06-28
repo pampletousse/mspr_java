@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import jdk.nashorn.internal.ir.WhileNode;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -22,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DashboardController {
 
@@ -48,6 +50,36 @@ public class DashboardController {
         labelWelcome.textProperty().bind(Bindings.convert(value));
         callErrorModale("test");
 
+        // Fonction 1
+        String str = "2018-10-10";
+        java.sql.Date date = java.sql.Date.valueOf(str);
+        List<Demande> ld = getListDemandesApresDate(date);
+
+        // Fonction 2
+        String str1 = "2018-09-10";
+        java.sql.Date date1 = java.sql.Date.valueOf(str1);
+        String str2 = "2018-11-10";
+        java.sql.Date date2 = java.sql.Date.valueOf(str2);
+        DechetsEnleves de = getQteTotaleDechetByDate(date1, date2);
+
+        // Fonction 2
+        EntrepriseTourneeQteByDemande etq = getInformationsByDemande(1);
+
+        // Fonction 3
+        List<Demande> ldd = getDemandesNonAffectees();
+
+        // Fonction 4
+        List<Employe> le = getEmployesMoinsTournees(4);
+
+        // Fonction 5
+        DechetsEnleves dee = getQteTotaleByTypeDateSite(1, date1, date2, 1);
+
+        // Fonction 6
+        //getQteTotaleByTypePeriodeAllSites();
+
+        // Fonction 7
+        //affectTournees();
+
 
 /*      labelWelcome.setText("AHOJ");
         labelWelcome.setText("fdsf");
@@ -71,9 +103,10 @@ public class DashboardController {
                 d.setIddemande(rs.getLong(1));
                 d.setDatedemande(rs.getTime(2));
                 d.setDateenlevement(rs.getTime(3));
-                d.setIdSite(rs.getInt(4));
+                d.setIdEntreprise(rs.getInt(4));
                 d.setIdTournee(rs.getLong(5));
-                d.setSiret(rs.getLong(6));
+                d.setWebON(rs.getString(6));
+                d.setIdSite(rs.getInt(7));
                 listedemandes.add(d);
             }
             connexion.close();
@@ -86,7 +119,7 @@ public class DashboardController {
     }
 
     // Récupération de la quantité totale de déchet par type pour une période donnée
-    public DechetsEnleves getQteTotaleDechetByDate(Date date) {
+    public DechetsEnleves getQteTotaleDechetByDate(Date date1, Date date2) {
         try {
             Connection connexion = oracleConnexion.connect();
             PreparedStatement stmt = connexion.prepareStatement(
@@ -95,10 +128,12 @@ public class DashboardController {
                     "inner join type_dechet td on dd.id_type_dechet  = td.id_type_dechet " +
                     "where d.datedemande between ? and ? " +
                     "group by dd.id_type_dechet");
-            stmt.setDate(1, date);
-            stmt.setDate(2, date);
+            stmt.setDate(1, date1);
+            stmt.setDate(2, date2);
             ResultSet rs = stmt.executeQuery();
+
             DechetsEnleves dechetsEnleves = new DechetsEnleves();
+
             while (rs.next()) {
                 TypeDechet td = getTypeDechetById(rs.getInt(1));
                 dechetsEnleves.getMapDechetsEnleves().put(td, rs.getLong(2));
@@ -117,9 +152,9 @@ public class DashboardController {
         try {
             Connection connexion = oracleConnexion.connect();
             PreparedStatement stmt = connexion.prepareStatement(
-                    "select d.id_tournee, e.raisonsociale from demande d" +
-                            "inner join entreprise e on d.id_entreprise = e.id_entreprise" +
-                            "where id_demande = ?");
+                    "select id_tournee, raisonsociale from demande d " +
+                            "inner join entreprise e on d.id_entreprise = e.id_entreprise " +
+                            "where id_demande = ? ");
             stmt.setInt(1, demandeid);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -138,16 +173,17 @@ public class DashboardController {
         List listedemandes = new ArrayList<Demande>();
         try {
             Connection connexion = oracleConnexion.connect();
-            PreparedStatement stmt = connexion.prepareStatement("select * from demande where id_tournee = null");
+            PreparedStatement stmt = connexion.prepareStatement("select * from demande where id_tournee IS NULL");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Demande d = new Demande();
                 d.setIddemande(rs.getLong(1));
                 d.setDatedemande(rs.getTime(2));
                 d.setDateenlevement(rs.getTime(3));
-                d.setIdSite(rs.getInt(4));
+                d.setIdEntreprise(rs.getInt(4));
                 d.setIdTournee(rs.getLong(5));
-                d.setSiret(rs.getLong(6));
+                d.setWebON(rs.getString(6));
+                d.setIdSite(rs.getInt(7));
                 listedemandes.add(d);
             }
             connexion.close();
@@ -160,36 +196,72 @@ public class DashboardController {
 
     // Récupération des employés ayant effectués moins de n tournées
     public List<Employe> getEmployesMoinsTournees(int nbTournees) {
+        List listeEmployes = new ArrayList<Employe>();
         try {
             Connection connexion = oracleConnexion.connect();
-            PreparedStatement stmt = connexion.prepareStatement("select *" +
-                    "FROM employe" +
-                    "WHERE id_employe IN (" +
-                    "select id_employe" +
-                    "from tournee " +
-                    "group by id_employe" +
-                    "HAVING COUNT(id_employe) < ?" +
-                    ");");
+            PreparedStatement stmt = connexion.prepareStatement(
+                    "select *" +
+                            "FROM employe " +
+                            "WHERE id_employe IN (" +
+                            "select id_employe " +
+                            "from tournee " +
+                            "group by id_employe " +
+                            "HAVING COUNT(id_employe) < ? " +
+                            ")");
             stmt.setInt(1, nbTournees);
             ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Employe e = new Employe();
+                e.setIdEmploye(rs.getShort(1));
+                e.setNom(rs.getString(2));
+                e.setPrenom(rs.getString(3));
+                e.setDatenaiss(rs.getTime(4));
+                e.setDateembauche(rs.getTime(5));
+                e.setSalaire(rs.getLong(6));
+                e.setIdProfil(rs.getInt(7));
+                listeEmployes.add(e);
+            }
             connexion.close();
+            return listeEmployes;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    // Récupération de la quantité totale de dechet par type periode et site
-    public int getQteTotaleByTypeDateSite(int idTypeDechet, Date dateDebut, Date dateFin, int idSite) {
+    // Récupération de la quantité totale de dechet par type periode et/ou site
+    public DechetsEnleves getQteTotaleByTypeDateSite(int idTypeDechet, Date dateDebut, Date dateFin, int idSite) {
         try {
             Connection connexion = oracleConnexion.connect();
-            PreparedStatement stmt = connexion.prepareStatement("select * from demande where id_tournee = null");
+            String sql =
+                    "select dd.id_type_dechet, SUM(quantite_enlevee) from detail_demande dd " +
+                            " inner join demande d on dd.id_demande = d.id_demande " +
+                            " inner join type_dechet td on dd.id_type_dechet  = td.id_type_dechet " +
+                            " where dd.id_type_dechet = ? and d.datedemande between ? and ? ";
+
+            if (idSite != -1) {
+                // Recherche sur un site précis
+                sql += " and d.id_site = ? ";
+            }
+            sql += " group by dd.id_type_dechet ";
+            PreparedStatement stmt = connexion.prepareStatement(sql);
+            stmt.setInt(1, idTypeDechet);
+            stmt.setDate(2, dateDebut);
+            stmt.setDate(3, dateFin);
+            stmt.setInt(4, idSite);
+
             ResultSet rs = stmt.executeQuery();
+            DechetsEnleves dechetsEnleves = new DechetsEnleves();
+            while (rs.next()) {
+                TypeDechet td = getTypeDechetById(rs.getInt(1));
+                dechetsEnleves.getMapDechetsEnleves().put(td, rs.getLong(2));
+            }
             connexion.close();
+            return dechetsEnleves;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return null;
     }
 
     // Récupération de la quantité totale de déchet par type et période sur tout les sites
@@ -222,8 +294,8 @@ public class DashboardController {
             while (rs.next()) {
                 TypeDechet td = new TypeDechet();
                 td.setIdTypeDechet(rs.getInt(1));
-                td.setNivDanger(rs.getBoolean(2));
-                td.setNom(rs.getString(3));
+                td.setNom(rs.getString(2));
+                td.setNivDanger(rs.getBoolean(3));
                 return td;
             }
             connexion.close();
