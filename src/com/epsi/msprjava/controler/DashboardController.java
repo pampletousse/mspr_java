@@ -7,6 +7,8 @@ import com.epsi.msprjava.model.TypeDechet;
 import com.epsi.msprjava.scenes.Dashboard;
 import com.epsi.msprjava.viewmodel.DechetsEnleves;
 import com.epsi.msprjava.viewmodel.EntrepriseTourneeQteByDemande;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,9 +26,13 @@ import java.util.List;
 public class DashboardController {
 
     @FXML
-    private Label labelWelcome;
+    private Label labelWelcome = new Label();
 
     private OracleConnexion oracleConnexion = new OracleConnexion();
+
+    private ErrorController errorController;
+
+    private SimpleStringProperty value = new SimpleStringProperty();
 
     public DashboardController() {
 
@@ -34,12 +40,18 @@ public class DashboardController {
 
     public void start(Stage window) throws Exception {
         //Dashboard.start(window);
-        Parent root = FXMLLoader.load(Dashboard.class.getResource("../views/dashboard.fxml"));
+        Parent root = FXMLLoader.load(DashboardController.class.getResource("../views/dashboard.fxml"));
         Scene scene = new Scene(root, 800, 700);
         window.setScene(scene);
         window.show();
+        value.set("fdjsofsd");
+        labelWelcome.textProperty().bind(Bindings.convert(value));
+        callErrorModale("test");
+
+
 /*      labelWelcome.setText("AHOJ");
         labelWelcome.setText("fdsf");
+        labelWelcome.textProperty().bind(secondsProperty.asString("%f seconds left"));
         System.out.println(labelWelcome.getLabelFor());*/
 
         // test fonctions
@@ -67,6 +79,7 @@ public class DashboardController {
             connexion.close();
             return listedemandes;
         } catch (Exception e) {
+            callErrorModale("Une erreur est survenue");
             e.printStackTrace();
         }
         return null;
@@ -218,6 +231,14 @@ public class DashboardController {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public void callErrorModale(String message) {
+        try {
+            errorController.start(new Stage(), message);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,8 +1,13 @@
 package com.epsi.msprjava.bdd;
 
+import com.epsi.msprjava.controler.ErrorController;
+import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class OracleConnexion {
+
+    private ErrorController errorController;
 
     public OracleConnexion() {
     }
@@ -17,6 +22,7 @@ public class OracleConnexion {
                 System.out.println("Connected to database");
             } else {
                 System.out.println("Error connecting to database");
+                errorController.start(new Stage(), "Erreur de connexion à la base de données");
             }
             return connexion;
 
@@ -29,7 +35,10 @@ public class OracleConnexion {
     public void closeConnexion(Connection connexion) {
         try {
             connexion.close();
+            errorController.start(new Stage(), "Erreur de connexion à la base de données");
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

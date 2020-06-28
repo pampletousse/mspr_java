@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.epsi.msprjava.controler.ErrorController">
+    <children>
+        <Label alignment="CENTER" layoutX="226.0" layoutY="67.0" prefHeight="17.0" prefWidth="149.0" text="ERREUR"
+               textAlignment="CENTER">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Label>
+        <Label fx:id="stringError" layoutX="286.0" layoutY="192.0" text="${controller.errorMessage}"
+               textAlignment="CENTER"/>
+    </children>
+</AnchorPane>

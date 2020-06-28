@@ -31,6 +31,8 @@ public class ConnexionController {
 
     private OracleConnexion oracleConnexion = new OracleConnexion();
 
+    private ErrorController errorController;
+
     //private static SessionFactory sessionFactory;
     public ConnexionController() {
 
