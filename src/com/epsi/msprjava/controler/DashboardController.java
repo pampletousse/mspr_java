@@ -1,9 +1,7 @@
 package com.epsi.msprjava.controler;
 
 import com.epsi.msprjava.bdd.OracleConnexion;
-import com.epsi.msprjava.model.Demande;
-import com.epsi.msprjava.model.Employe;
-import com.epsi.msprjava.model.TypeDechet;
+import com.epsi.msprjava.model.*;
 import com.epsi.msprjava.scenes.Dashboard;
 import com.epsi.msprjava.viewmodel.DechetsEnleves;
 import com.epsi.msprjava.viewmodel.EntrepriseTourneeQteByDemande;
@@ -158,8 +156,24 @@ public class DashboardController {
             stmt.setInt(1, demandeid);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-
+                etq.setTournee(rs.getInt(1));
+                etq.setRaisonSocialeEntreprise(rs.getString(2));
             }
+
+            PreparedStatement stmt2 = connexion.prepareStatement(
+                    "select dd.id_type_dechet, SUM(quantite_enlevee) from detail_demande dd " +
+                            "inner join demande d on dd.id_demande = d.id_demande " +
+                            "inner join type_dechet td on dd.id_type_dechet  = td.id_type_dechet " +
+                            "where dd.id_demande = ? " +
+                            "group by dd.id_type_dechet "
+            );
+            stmt2.setInt(1, demandeid);
+            ResultSet rs2 = stmt2.executeQuery();
+            while (rs2.next()) {
+                TypeDechet td = getTypeDechetById(rs2.getInt(1));
+                de.getMapDechetsEnleves().put(td, rs2.getLong(2));
+            }
+            etq.setDechetsEnleves(de);
             connexion.close();
             return etq;
         } catch (Exception e) {
@@ -297,6 +311,28 @@ public class DashboardController {
                 td.setNom(rs.getString(2));
                 td.setNivDanger(rs.getBoolean(3));
                 return td;
+            }
+            connexion.close();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Tournee getTourneeById(int idTournee) {
+        try {
+            Connection connexion = oracleConnexion.connect();
+            PreparedStatement stmt = connexion.prepareStatement("select * from tournee where id_type_dechet = ?");
+            stmt.setInt(1, idTournee);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Tournee t = new Tournee();
+                t.setIdTournee(rs.getLong(1));
+                t.setDatetournee(rs.getTime(2));
+                t.setIdimmatric(rs.getString(3));
+                t.setIdEmploye(rs.getShort(4));
+                return t;
             }
             connexion.close();
             return null;
