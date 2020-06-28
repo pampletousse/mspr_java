@@ -69,7 +69,7 @@ public class ConnexionController {
             int type = ResultSet.TYPE_SCROLL_INSENSITIVE;
             int mode = ResultSet.CONCUR_UPDATABLE;
             //Statement stmt = connexion.createStatement(type,mode);
-            PreparedStatement stmt = connexion.prepareStatement("select * from employe where nom = ? and motpass = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            PreparedStatement stmt = connexion.prepareStatement("select * from employe where login = ? and motpass = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             stmt.setString(1, user);
             stmt.setString(2, pass);
             ResultSet rs = stmt.executeQuery();
