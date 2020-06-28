@@ -1,12 +1,13 @@
 package com.epsi.msprjava.model;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.Objects;
 
 public class Demande {
     private Long iddemande;
-    private Time datedemande;
-    private Time dateenlevement;
+    private java.sql.Date datedemande;
+    private java.sql.Date dateenlevement;
     private int idEntreprise;
     private Long idTournee;
     private String webON;
@@ -20,19 +21,19 @@ public class Demande {
         this.iddemande = iddemande;
     }
 
-    public Time getDatedemande() {
+    public Date getDatedemande() {
         return datedemande;
     }
 
-    public void setDatedemande(Time datedemande) {
+    public void setDatedemande(Date datedemande) {
         this.datedemande = datedemande;
     }
 
-    public Time getDateenlevement() {
+    public Date getDateenlevement() {
         return dateenlevement;
     }
 
-    public void setDateenlevement(Time dateenlevement) {
+    public void setDateenlevement(Date dateenlevement) {
         this.dateenlevement = dateenlevement;
     }
 
@@ -67,6 +68,4 @@ public class Demande {
     public void setIdSite(int idSite) {
         this.idSite = idSite;
     }
-
-
 }

@@ -7,26 +7,55 @@ import com.epsi.msprjava.viewmodel.DechetsEnleves;
 import com.epsi.msprjava.viewmodel.EntrepriseTourneeQteByDemande;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import jdk.nashorn.internal.ir.WhileNode;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DashboardController {
 
     @FXML
     private Label labelWelcome = new Label();
+
+    @FXML
+    ChoiceBox cb1;
+
+    @FXML
+    ChoiceBox cb2;
+
+    @FXML
+    ListView<String> listDemandes = new ListView<String>();
+
+    @FXML
+    Button btnRechercherApres = new Button();
+
+    @FXML
+    DatePicker datePicker1 = new DatePicker();
+
+    ObservableList<String> items = FXCollections.observableArrayList();
 
     private OracleConnexion oracleConnexion = new OracleConnexion();
 
@@ -34,19 +63,60 @@ public class DashboardController {
 
     private SimpleStringProperty value = new SimpleStringProperty();
 
-    public DashboardController() {
+    public void initialize() {
 
+        value.set("Bienvenue");
+        labelWelcome.textProperty().bind(Bindings.convert(value));
+
+        List<Demande> ld = getDemandes();
+        for (Demande d : ld) {
+            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
+        }
+
+        List<TypeDechet> lt = getTypeDechets();
+        for (TypeDechet t : lt) {
+            cb1.getItems().add(t.getNom());
+        }
+
+        List<Site> ls = getSites();
+        for (Site s : ls) {
+            cb2.getItems().add(s.getNomsite());
+        }
+        cb1.getSelectionModel().selectFirst();
+        cb2.getSelectionModel().selectFirst();
+
+        listDemandes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                System.out.println("Selected item: " + newValue);
+            }
+        });
     }
 
     public void start(Stage window) throws Exception {
-        //Dashboard.start(window);
         Parent root = FXMLLoader.load(DashboardController.class.getResource("../views/dashboard.fxml"));
-        Scene scene = new Scene(root, 800, 700);
+
+        /*
+        cb.setItems(FXCollections.observableArrayList(
+                "New Document", "Open ")
+        );
+        cb.getItems().add("Choice 1");
+        cb.getItems().add("Choice 2");
+        cb.getItems().add("Choice 3");*/
+
+
+        Scene scene = new Scene(root, 700, 500);
         window.setScene(scene);
         window.show();
-        value.set("fdjsofsd");
-        labelWelcome.textProperty().bind(Bindings.convert(value));
-        callErrorModale("test");
+
+        //callErrorModale("test");
+
+        // Tab Demandes
+
+        // Tap Tournées
+
+        // Tab Dechets
+
 
         // Fonction 1
         String str = "2018-10-10";
@@ -78,14 +148,15 @@ public class DashboardController {
         // Fonction 7
         //affectTournees();
 
+    }
 
-/*      labelWelcome.setText("AHOJ");
-        labelWelcome.setText("fdsf");
-        labelWelcome.textProperty().bind(secondsProperty.asString("%f seconds left"));
-        System.out.println(labelWelcome.getLabelFor());*/
+    public void demandeApres(ActionEvent actionEvent) throws Exception {
 
-        // test fonctions
+        LocalDate localedate = datePicker1.getValue();
+        java.sql.Date date = Date.valueOf(localedate);
+        System.out.println(date);
 
+        getListDemandesApresDate(date);
     }
 
     // Récupération des demandes après une date donnée
@@ -99,13 +170,14 @@ public class DashboardController {
             while (rs.next()) {
                 Demande d = new Demande();
                 d.setIddemande(rs.getLong(1));
-                d.setDatedemande(rs.getTime(2));
-                d.setDateenlevement(rs.getTime(3));
+                d.setDatedemande(rs.getDate(2));
+                d.setDateenlevement(rs.getDate(3));
                 d.setIdEntreprise(rs.getInt(4));
                 d.setIdTournee(rs.getLong(5));
                 d.setWebON(rs.getString(6));
                 d.setIdSite(rs.getInt(7));
                 listedemandes.add(d);
+                items.add(d.getWebON());
             }
             connexion.close();
             return listedemandes;
@@ -192,8 +264,8 @@ public class DashboardController {
             while (rs.next()) {
                 Demande d = new Demande();
                 d.setIddemande(rs.getLong(1));
-                d.setDatedemande(rs.getTime(2));
-                d.setDateenlevement(rs.getTime(3));
+                d.setDatedemande(rs.getDate(2));
+                d.setDateenlevement(rs.getDate(3));
                 d.setIdEntreprise(rs.getInt(4));
                 d.setIdTournee(rs.getLong(5));
                 d.setWebON(rs.getString(6));
@@ -340,6 +412,78 @@ public class DashboardController {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    public List<Demande> getDemandes() {
+        List listedemandes = new ArrayList<Demande>();
+        try {
+            Connection connexion = oracleConnexion.connect();
+            PreparedStatement stmt = connexion.prepareStatement("select * from demande");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Demande d = new Demande();
+                d.setIddemande(rs.getLong(1));
+                d.setDatedemande(rs.getDate(2));
+                d.setDateenlevement(rs.getDate(3));
+                d.setIdEntreprise(rs.getInt(4));
+                d.setIdTournee(rs.getLong(5));
+                d.setWebON(rs.getString(6));
+                d.setIdSite(rs.getInt(7));
+                listedemandes.add(d);
+            }
+            connexion.close();
+            return listedemandes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Site> getSites() {
+        List listesites = new ArrayList<Site>();
+        try {
+            Connection connexion = oracleConnexion.connect();
+            PreparedStatement stmt = connexion.prepareStatement("select * from sites");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Site s = new Site();
+                s.setIdSite(rs.getInt(1));
+                s.setNomsite(rs.getString(2));
+                s.setNoruesite(rs.getInt(3));
+                s.setRuesite(rs.getString(4));
+                s.setCpostalsite(rs.getShort(5));
+                s.setVillesite(rs.getString(6));
+                listesites.add(s);
+            }
+            connexion.close();
+            return listesites;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<TypeDechet> getTypeDechets() {
+        List listeTypes = new ArrayList<TypeNotPresentException>();
+        try {
+            Connection connexion = oracleConnexion.connect();
+            PreparedStatement stmt = connexion.prepareStatement("select * from type_dechet");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Site s = new Site();
+                TypeDechet t = new TypeDechet();
+                t.setIdTypeDechet(rs.getInt(1));
+                t.setNom(rs.getString(2));
+                t.setNivDanger(rs.getBoolean(3));
+                listeTypes.add(t);
+            }
+            connexion.close();
+            return listeTypes;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void callErrorModale(String message) {

@@ -3,6 +3,7 @@ package com.epsi.msprjava.controler;
 import com.epsi.msprjava.scenes.Dashboard;
 import com.epsi.msprjava.scenes.ModalError;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -19,20 +20,25 @@ public class ErrorController {
     @FXML
     private static Label stringError = new Label();
 
-    private static StringProperty errorMessage;
+    private SimpleStringProperty errorValue = new SimpleStringProperty();
 
-    //private static SimpleStringProperty stringErrorrProperty = new SimpleStringProperty("kikoo");
+    private String message;
+
+    public ErrorController(String message) {
+        this.message = message;
+    }
+
+    public void initialize() {
+        errorValue.set(message);
+        stringError.textProperty().bind(Bindings.convert(errorValue));
+    }
 
     public static void start(Stage window, String message) throws Exception {
-
-        errorMessage = new SimpleStringProperty(message);
-        stringError.textProperty().bind(errorMessageProperty());
 
         Parent root = FXMLLoader.load(ErrorController.class.getResource("../views/modalerror.fxml"));
         Scene scene = new Scene(root, 400, 300);
         window.setScene(scene);
         window.show();
-
 
         stringError.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -41,9 +47,5 @@ public class ErrorController {
             }
         });
 
-    }
-
-    public static StringProperty errorMessageProperty() {
-        return errorMessage;
     }
 }

@@ -2,6 +2,7 @@ package com.epsi.msprjava.controler;
 
 import com.epsi.msprjava.bdd.OracleConnexion;
 import com.epsi.msprjava.model.Employe;
+import com.epsi.msprjava.scenes.Dashboard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -43,17 +44,10 @@ public class ConnexionController {
         String user = stringUser.getText();
         String pass = stringPass.getText();
 
-        System.out.println(user);
-        System.out.println(pass);
-
         if (checkUser(user, pass)) {
             OracleConnexion oracleConnexion = new OracleConnexion();
             oracleConnexion.connect();
 
-
-            //System.out.println("connected");
-            //Profil profil = new Profil(1, "admin");
-            //User u = new User(user, pass, profil);
             Stage stage = (Stage) btnConnexion.getScene().getWindow();
             DashboardController dashControl = new DashboardController();
             dashControl.start(stage);

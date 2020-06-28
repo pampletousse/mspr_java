@@ -13,7 +13,7 @@
                 <Font size="25.0"/>
             </font>
         </Label>
-        <Label fx:id="stringError" layoutX="286.0" layoutY="192.0" text="${controller.errorMessage}"
+        <Label fx:id="stringError" layoutX="286.0" layoutY="192.0" text="Une erreur est survenue"
                textAlignment="CENTER"/>
     </children>
 </AnchorPane>
