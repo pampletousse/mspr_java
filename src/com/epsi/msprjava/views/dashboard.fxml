@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="358.0" prefWidth="567.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            minWidth="-Infinity" prefHeight="443.0" prefWidth="567.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.epsi.msprjava.controler.DashboardController">
     <children>
         <Label layoutX="212.0" layoutY="40.0" text="Dashboard">
@@ -23,14 +23,13 @@
             </font>
         </Label>
         <Label fx:id="labelWelcome" layoutX="256.0" layoutY="79.0" text="Bienvenue"/>
-        <Pane layoutX="11.0" layoutY="123.0" prefHeight="172.0" prefWidth="556.0">
+        <Pane layoutX="11.0" layoutY="123.0" prefHeight="315.0" prefWidth="556.0">
             <children>
-                <Label layoutX="8.0" layoutY="61.0"/>
-                <TabPane layoutY="33.0" prefHeight="193.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE">
+                <TabPane layoutY="33.0" prefHeight="284.0" prefWidth="556.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Demandes">
                             <content>
-                                <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="280.0" prefWidth="556.0">
+                                <AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="265.0" prefWidth="556.0">
                                     <children>
                                         <Label layoutX="25.0" layoutY="25.0" prefHeight="17.0" prefWidth="109.0"
                                                text="Demandes après :"/>
@@ -63,13 +62,14 @@
                                         <ChoiceBox fx:id="cb1" layoutX="195.0" layoutY="27.0" prefWidth="150.0"/>
                                         <Label layoutX="14.0" layoutY="31.0" text="Séléctionner un type de déchêt"/>
                                         <Label layoutX="245.0" layoutY="112.0" text="à"/>
-                                        <Button layoutX="417.0" layoutY="125.0" mnemonicParsing="false"
-                                                prefHeight="25.0" prefWidth="125.0" text="Rechercher"/>
+                                        <Button layoutX="14.0" layoutY="216.0" mnemonicParsing="false"
+                                                onAction="#onClickSearchDechets" prefHeight="25.0" prefWidth="125.0"
+                                                text="Rechercher"/>
                                         <Label layoutX="14.0" layoutY="66.0" text="Selectionner un site (optionnel)"/>
                                         <ChoiceBox fx:id="cb2" layoutX="195.0" layoutY="62.0" prefWidth="150.0"/>
                                         <Label layoutX="14.0" layoutY="112.0" text="De"/>
-                                        <DatePicker layoutX="57.0" layoutY="108.0"/>
-                                        <DatePicker layoutX="289.0" layoutY="104.0"/>
+                                        <DatePicker fx:id="datePicker2" layoutX="57.0" layoutY="108.0"/>
+                                        <DatePicker fx:id="datePicker3" layoutX="270.0" layoutY="108.0"/>
                                     </children>
                                 </AnchorPane>
                             </content>

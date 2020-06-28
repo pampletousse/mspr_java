@@ -55,6 +55,12 @@ public class DashboardController {
     @FXML
     DatePicker datePicker1 = new DatePicker();
 
+    @FXML
+    DatePicker datePicker2 = new DatePicker();
+
+    @FXML
+    DatePicker datePicker3 = new DatePicker();
+
     ObservableList<String> items = FXCollections.observableArrayList();
 
     private OracleConnexion oracleConnexion = new OracleConnexion();
@@ -96,20 +102,11 @@ public class DashboardController {
     public void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(DashboardController.class.getResource("../views/dashboard.fxml"));
 
-        /*
-        cb.setItems(FXCollections.observableArrayList(
-                "New Document", "Open ")
-        );
-        cb.getItems().add("Choice 1");
-        cb.getItems().add("Choice 2");
-        cb.getItems().add("Choice 3");*/
-
-
         Scene scene = new Scene(root, 700, 500);
         window.setScene(scene);
         window.show();
 
-        //callErrorModale("test");
+        callErrorModale("test");
 
         // Tab Demandes
 
@@ -154,9 +151,30 @@ public class DashboardController {
 
         LocalDate localedate = datePicker1.getValue();
         java.sql.Date date = Date.valueOf(localedate);
-        System.out.println(date);
 
+        listDemandes.getItems().clear();
+        for (Demande d : getListDemandesApresDate(date)) {
+            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
+        }
         getListDemandesApresDate(date);
+    }
+
+    public void onClickSearchDechets(ActionEvent actionEvent) throws Exception {
+
+        System.out.println(cb1.getValue());
+        System.out.println(cb2.getValue());
+
+        LocalDate localedate1 = datePicker2.getValue();
+        java.sql.Date date1 = Date.valueOf(localedate1);
+
+        LocalDate localedate2 = datePicker3.getValue();
+        java.sql.Date date2 = Date.valueOf(localedate2);
+
+        listDemandes.getItems().clear();
+        /*for (Demande d : getQteTotaleByTypeDateSite(cb1.getValue(),date1,date2)) {
+            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
+        }*/
+        //getListDemandesApresDate(date);
     }
 
     // Récupération des demandes après une date donnée
@@ -350,11 +368,6 @@ public class DashboardController {
         return null;
     }
 
-    // Récupération de la quantité totale de déchet par type et période sur tout les sites
-    public int getQteTotaleByTypePeriodeAllSites(int idTypeDechet, Date dateDebut, Date dateFin) {
-        return 0;
-    }
-
 
     // Affectation des tournées
     public void affectTournees(Date datedemandee) {
@@ -488,6 +501,7 @@ public class DashboardController {
 
     public void callErrorModale(String message) {
         try {
+            new ErrorController(message);
             errorController.start(new Stage(), message);
         } catch (Exception e) {
             e.printStackTrace();

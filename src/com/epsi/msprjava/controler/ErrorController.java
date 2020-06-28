@@ -1,11 +1,7 @@
 package com.epsi.msprjava.controler;
 
-import com.epsi.msprjava.scenes.Dashboard;
-import com.epsi.msprjava.scenes.ModalError;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -23,6 +19,9 @@ public class ErrorController {
     private SimpleStringProperty errorValue = new SimpleStringProperty();
 
     private String message;
+
+    public ErrorController() {
+    }
 
     public ErrorController(String message) {
         this.message = message;
@@ -46,6 +45,5 @@ public class ErrorController {
                 System.out.println("Label Text Changed");
             }
         });
-
     }
 }
