@@ -13,6 +13,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,16 +48,12 @@ public class DashboardController {
     private Label labelNumTournee = new Label();
 
     @FXML
-    private Label labekqteTotale = new Label();
+    private Label labelqteTotale = new Label();
 
-    @FXML
-    private TableView tableDechet = new TableView();
+    ObservableMap<TypeDechet, Long> map = FXCollections.observableHashMap();
 
-    @FXML
-    private TableColumn tableColDechet = new TableColumn();
+    ObservableList<String> keys = FXCollections.observableArrayList();
 
-    @FXML
-    private TableColumn tableColQte = new TableColumn();
 
     @FXML
     TextField nbTournees;
@@ -74,7 +71,7 @@ public class DashboardController {
     ListView<Demande> listDemandes = new ListView<Demande>();
 
     @FXML
-    ListView<Demande> listDechets = new ListView<Demande>();
+    ListView<Map.Entry> listDechets = new ListView<Map.Entry>();
 
     @FXML
     Button btnRechercherApres = new Button();
@@ -106,6 +103,7 @@ public class DashboardController {
 
     private SimpleStringProperty valueQteTotale = new SimpleStringProperty();
 
+
     public void initialize() {
 
         value.set("Bienvenue");
@@ -120,6 +118,19 @@ public class DashboardController {
                     setText(null);
                 } else {
                     setText(item.getIddemande() + " - " + item.getDateenlevement());
+                }
+            }
+        });
+
+        listDechets.setCellFactory(param -> new ListCell<Map.Entry>() {
+            @Override
+            protected void updateItem(Map.Entry item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getValue().toString() + " - " + item.getKey().toString());
                 }
             }
         });
@@ -144,6 +155,9 @@ public class DashboardController {
         cb1.getSelectionModel().selectFirst();
         cb2.getSelectionModel().selectFirst();
 
+        //tableColDechet.setCellValueFactory(new PropertyValueFactory<>("Type de déchet"));
+        //tableColQte.setCellValueFactory(new PropertyValueFactory<>("Qte"));
+
         listDemandes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Demande>() {
             @Override
             public void changed(ObservableValue<? extends Demande> observable, Demande oldValue, Demande newValue) {
@@ -156,12 +170,34 @@ public class DashboardController {
                     valueNumTournee.set("Numéro de tournée : " + String.valueOf(etq.getTournee()));
                     labelNumTournee.textProperty().bind(Bindings.convert(valueNumTournee));
 
-                    tableColDechet.setCellValueFactory(new PropertyValueFactory<Row, String>("title"));
+                    listDechets.getItems().clear();
+                    for (Map.Entry e : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()) {
+                        listDechets.getItems().add(e);
+
+                    }
+                    //List<String> ldd = etq.getDechetsEnleves().getMapDechetsEnleves();
+                    //itemsDechet.getItems().clear();
+
+                    //map = etq.getDechetsEnleves().getMapDechetsEnleves();
+                    /*
+                    for(Map.Entry e : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()){
+                        tableDechet.getItems().add(etq.getDechetsEnleves().getMapDechetsEnleves().get(e));
+                    }
+
 
                     for (Map.Entry es : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()) {
                         tableColDechet.setCellValueFactory(cellData -> es.getKey());
-                        tableColQte.setCellValueFactory(cellData -> es.getValue());
-                    }
+                        tableColQte.setCellValueFactory(cellData -> es.getValue().toString());
+                    }*/
+
+                    /*TableColumn<String, String> column1 = new TableColumn<>("Key");
+                    // display item value (= constant)
+                    tableColQte.setCellValueFactory(cd -> Bindings.createStringBinding(() -> cd.getValue()));
+
+                    TableColumn<String, String> column2 = new TableColumn<>("Value");
+                    tableColDechet.setCellValueFactory(cd -> Bindings.valueAt(map, cd.getValue().g));
+*/
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -275,7 +311,7 @@ public class DashboardController {
         listDechets.getItems().clear();
         DechetsEnleves de = getQteTotaleByTypeDateSite(cb1.getValue().getIdTypeDechet(), date1, date2, cb2.getValue().getIdSite());
         valueQteTotale.set("Quantité totale récupérée : " + String.valueOf(de.getMapDechetsEnleves().get(0)));
-        labekqteTotale.textProperty().bind(Bindings.convert(valueQteTotale));
+        labelqteTotale.textProperty().bind(Bindings.convert(valueQteTotale));
         //listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
     }
 
