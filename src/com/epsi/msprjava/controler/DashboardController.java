@@ -2,29 +2,30 @@ package com.epsi.msprjava.controler;
 
 import com.epsi.msprjava.bdd.OracleConnexion;
 import com.epsi.msprjava.model.*;
-import com.epsi.msprjava.scenes.Dashboard;
+import com.epsi.msprjava.util.SiteStringConverter;
+import com.epsi.msprjava.util.TypeDechetStringConverter;
 import com.epsi.msprjava.viewmodel.DechetsEnleves;
 import com.epsi.msprjava.viewmodel.EntrepriseTourneeQteByDemande;
+import com.sun.rowset.internal.Row;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.ir.WhileNode;
+import javafx.util.Callback;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -33,7 +34,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class DashboardController {
 
@@ -41,13 +41,40 @@ public class DashboardController {
     private Label labelWelcome = new Label();
 
     @FXML
-    ChoiceBox cb1;
+    private Label labelRaison = new Label();
 
     @FXML
-    ChoiceBox cb2;
+    private Label labelNumTournee = new Label();
 
     @FXML
-    ListView<String> listDemandes = new ListView<String>();
+    private Label labekqteTotale = new Label();
+
+    @FXML
+    private TableView tableDechet = new TableView();
+
+    @FXML
+    private TableColumn tableColDechet = new TableColumn();
+
+    @FXML
+    private TableColumn tableColQte = new TableColumn();
+
+    @FXML
+    TextField nbTournees;
+
+    @FXML
+    ListView<String> listeEmployes = new ListView<String>();
+
+    @FXML
+    ChoiceBox<TypeDechet> cb1 = new ChoiceBox();
+
+    @FXML
+    ChoiceBox<Site> cb2 = new ChoiceBox();
+
+    @FXML
+    ListView<Demande> listDemandes = new ListView<Demande>();
+
+    @FXML
+    ListView<Demande> listDechets = new ListView<Demande>();
 
     @FXML
     Button btnRechercherApres = new Button();
@@ -63,40 +90,84 @@ public class DashboardController {
 
     ObservableList<String> items = FXCollections.observableArrayList();
 
+    ObservableList<TypeDechet> itemsDechet = FXCollections.observableArrayList();
+
+    ObservableList<String> itemsEmployes = FXCollections.observableArrayList();
+
     private OracleConnexion oracleConnexion = new OracleConnexion();
 
     private ErrorController errorController;
 
     private SimpleStringProperty value = new SimpleStringProperty();
 
+    private SimpleStringProperty valueRaison = new SimpleStringProperty();
+
+    private SimpleStringProperty valueNumTournee = new SimpleStringProperty();
+
+    private SimpleStringProperty valueQteTotale = new SimpleStringProperty();
+
     public void initialize() {
 
         value.set("Bienvenue");
         labelWelcome.textProperty().bind(Bindings.convert(value));
 
+        listDemandes.setCellFactory(param -> new ListCell<Demande>() {
+            @Override
+            protected void updateItem(Demande item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getIddemande() + " - " + item.getDateenlevement());
+                }
+            }
+        });
+
         List<Demande> ld = getDemandes();
         for (Demande d : ld) {
-            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
+            listDemandes.getItems().add(d);
         }
 
         List<TypeDechet> lt = getTypeDechets();
         for (TypeDechet t : lt) {
-            cb1.getItems().add(t.getNom());
+            cb1.setConverter(new TypeDechetStringConverter());
+            cb1.getItems().add(t);
         }
 
         List<Site> ls = getSites();
         for (Site s : ls) {
-            cb2.getItems().add(s.getNomsite());
+            cb2.setConverter(new SiteStringConverter());
+            cb2.getItems().add(s);
         }
+
         cb1.getSelectionModel().selectFirst();
         cb2.getSelectionModel().selectFirst();
 
-        listDemandes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        listDemandes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Demande>() {
             @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                System.out.println("Selected item: " + newValue);
+            public void changed(ObservableValue<? extends Demande> observable, Demande oldValue, Demande newValue) {
+                try {
+                    System.out.println("Selected item: " + newValue.getIddemande());
+                    EntrepriseTourneeQteByDemande etq = getInformationsByDemande(Integer.parseInt(newValue.getIddemande().toString()));
+                    valueRaison.set("Raison Sociale : " + etq.getRaisonSocialeEntreprise());
+                    labelRaison.textProperty().bind(Bindings.convert(valueRaison));
+
+                    valueNumTournee.set("Numéro de tournée : " + String.valueOf(etq.getTournee()));
+                    labelNumTournee.textProperty().bind(Bindings.convert(valueNumTournee));
+
+                    tableColDechet.setCellValueFactory(new PropertyValueFactory<Row, String>("title"));
+
+                    for (Map.Entry es : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()) {
+                        tableColDechet.setCellValueFactory(cellData -> es.getKey());
+                        tableColQte.setCellValueFactory(cellData -> es.getValue());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+
     }
 
     public void start(Stage window) throws Exception {
@@ -109,6 +180,8 @@ public class DashboardController {
         callErrorModale("test");
 
         // Tab Demandes
+
+        // Tap Employés
 
         // Tap Tournées
 
@@ -145,7 +218,27 @@ public class DashboardController {
         // Fonction 7
         //affectTournees();
 
+
     }
+
+    Callback<ListView<TypeDechet>, ListCell<TypeDechet>> cellFactory = new Callback<ListView<TypeDechet>, ListCell<TypeDechet>>() {
+
+        @Override
+        public ListCell<TypeDechet> call(ListView<TypeDechet> l) {
+            return new ListCell<TypeDechet>() {
+
+                @Override
+                protected void updateItem(TypeDechet item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        setText(item.getNom() + "    " + item.getNivDanger());
+                    }
+                }
+            };
+        }
+    };
 
     public void demandeApres(ActionEvent actionEvent) throws Exception {
 
@@ -154,15 +247,23 @@ public class DashboardController {
 
         listDemandes.getItems().clear();
         for (Demande d : getListDemandesApresDate(date)) {
-            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
+            listDemandes.getItems().add(d);
         }
-        getListDemandesApresDate(date);
+    }
+
+    public void searchEmployes(ActionEvent actionEvent) throws Exception {
+
+        int nbTournee = Integer.parseInt(nbTournees.getText());
+        listeEmployes.getItems().clear();
+        for (Employe e : getEmployesMoinsTournees(nbTournee)) {
+            listeEmployes.getItems().add(e.getIdEmploye() + " - " + e.getNom() + " " + e.getPrenom());
+        }
     }
 
     public void onClickSearchDechets(ActionEvent actionEvent) throws Exception {
 
-        System.out.println(cb1.getValue());
-        System.out.println(cb2.getValue());
+        System.out.println(cb1.getValue().getIdTypeDechet());
+        System.out.println(cb2.getValue().getIdSite());
 
         LocalDate localedate1 = datePicker2.getValue();
         java.sql.Date date1 = Date.valueOf(localedate1);
@@ -170,11 +271,12 @@ public class DashboardController {
         LocalDate localedate2 = datePicker3.getValue();
         java.sql.Date date2 = Date.valueOf(localedate2);
 
-        listDemandes.getItems().clear();
-        /*for (Demande d : getQteTotaleByTypeDateSite(cb1.getValue(),date1,date2)) {
-            listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
-        }*/
-        //getListDemandesApresDate(date);
+
+        listDechets.getItems().clear();
+        DechetsEnleves de = getQteTotaleByTypeDateSite(cb1.getValue().getIdTypeDechet(), date1, date2, cb2.getValue().getIdSite());
+        valueQteTotale.set("Quantité totale récupérée : " + String.valueOf(de.getMapDechetsEnleves().get(0)));
+        labekqteTotale.textProperty().bind(Bindings.convert(valueQteTotale));
+        //listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
     }
 
     // Récupération des demandes après une date donnée
@@ -356,9 +458,11 @@ public class DashboardController {
 
             ResultSet rs = stmt.executeQuery();
             DechetsEnleves dechetsEnleves = new DechetsEnleves();
+            itemsDechet.clear();
             while (rs.next()) {
                 TypeDechet td = getTypeDechetById(rs.getInt(1));
                 dechetsEnleves.getMapDechetsEnleves().put(td, rs.getLong(2));
+                itemsDechet.add(td);
             }
             connexion.close();
             return dechetsEnleves;
