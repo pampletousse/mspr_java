@@ -23,10 +23,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.net.Proxy;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -50,11 +50,6 @@ public class DashboardController {
     @FXML
     private Label labelqteTotale = new Label();
 
-    ObservableMap<TypeDechet, Long> map = FXCollections.observableHashMap();
-
-    ObservableList<String> keys = FXCollections.observableArrayList();
-
-
     @FXML
     TextField nbTournees;
 
@@ -69,6 +64,9 @@ public class DashboardController {
 
     @FXML
     ListView<Demande> listDemandes = new ListView<Demande>();
+
+    @FXML
+    ListView<Demande> listeDemandesNA = new ListView<Demande>();
 
     @FXML
     ListView<Map.Entry> listDechets = new ListView<Map.Entry>();
@@ -90,6 +88,8 @@ public class DashboardController {
     ObservableList<TypeDechet> itemsDechet = FXCollections.observableArrayList();
 
     ObservableList<String> itemsEmployes = FXCollections.observableArrayList();
+
+    ObservableList<Demande> itemsDemandesNA = FXCollections.observableArrayList();
 
     private OracleConnexion oracleConnexion = new OracleConnexion();
 
@@ -122,6 +122,19 @@ public class DashboardController {
             }
         });
 
+        listeDemandesNA.setCellFactory(param -> new ListCell<Demande>() {
+            @Override
+            protected void updateItem(Demande item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getIddemande() + " - " + item.getDateenlevement());
+                }
+            }
+        });
+
         listDechets.setCellFactory(param -> new ListCell<Map.Entry>() {
             @Override
             protected void updateItem(Map.Entry item, boolean empty) {
@@ -130,7 +143,8 @@ public class DashboardController {
                 if (empty || item == null) {
                     setText(null);
                 } else {
-                    setText(item.getValue().toString() + " - " + item.getKey().toString());
+                    TypeDechet td = (TypeDechet) item.getKey();
+                    setText(td.getNom() + " -> " + item.getValue().toString());
                 }
             }
         });
@@ -138,6 +152,11 @@ public class DashboardController {
         List<Demande> ld = getDemandes();
         for (Demande d : ld) {
             listDemandes.getItems().add(d);
+        }
+
+        List<Demande> ldd = getDemandesNonAffectees();
+        for (Demande d2 : ldd) {
+            listeDemandesNA.getItems().add(d2);
         }
 
         List<TypeDechet> lt = getTypeDechets();
@@ -155,8 +174,6 @@ public class DashboardController {
         cb1.getSelectionModel().selectFirst();
         cb2.getSelectionModel().selectFirst();
 
-        //tableColDechet.setCellValueFactory(new PropertyValueFactory<>("Type de déchet"));
-        //tableColQte.setCellValueFactory(new PropertyValueFactory<>("Qte"));
 
         listDemandes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Demande>() {
             @Override
@@ -173,30 +190,7 @@ public class DashboardController {
                     listDechets.getItems().clear();
                     for (Map.Entry e : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()) {
                         listDechets.getItems().add(e);
-
                     }
-                    //List<String> ldd = etq.getDechetsEnleves().getMapDechetsEnleves();
-                    //itemsDechet.getItems().clear();
-
-                    //map = etq.getDechetsEnleves().getMapDechetsEnleves();
-                    /*
-                    for(Map.Entry e : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()){
-                        tableDechet.getItems().add(etq.getDechetsEnleves().getMapDechetsEnleves().get(e));
-                    }
-
-
-                    for (Map.Entry es : etq.getDechetsEnleves().getMapDechetsEnleves().entrySet()) {
-                        tableColDechet.setCellValueFactory(cellData -> es.getKey());
-                        tableColQte.setCellValueFactory(cellData -> es.getValue().toString());
-                    }*/
-
-                    /*TableColumn<String, String> column1 = new TableColumn<>("Key");
-                    // display item value (= constant)
-                    tableColQte.setCellValueFactory(cd -> Bindings.createStringBinding(() -> cd.getValue()));
-
-                    TableColumn<String, String> column2 = new TableColumn<>("Value");
-                    tableColDechet.setCellValueFactory(cd -> Bindings.valueAt(map, cd.getValue().g));
-*/
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -209,7 +203,7 @@ public class DashboardController {
     public void start(Stage window) throws Exception {
         Parent root = FXMLLoader.load(DashboardController.class.getResource("../views/dashboard.fxml"));
 
-        Scene scene = new Scene(root, 700, 500);
+        Scene scene = new Scene(root, 500, 500);
         window.setScene(scene);
         window.show();
 
@@ -247,14 +241,6 @@ public class DashboardController {
 
         // Fonction 5
         DechetsEnleves dee = getQteTotaleByTypeDateSite(1, date1, date2, 1);
-
-        // Fonction 6
-        //getQteTotaleByTypePeriodeAllSites();
-
-        // Fonction 7
-        //affectTournees();
-
-
     }
 
     Callback<ListView<TypeDechet>, ListCell<TypeDechet>> cellFactory = new Callback<ListView<TypeDechet>, ListCell<TypeDechet>>() {
@@ -310,7 +296,12 @@ public class DashboardController {
 
         listDechets.getItems().clear();
         DechetsEnleves de = getQteTotaleByTypeDateSite(cb1.getValue().getIdTypeDechet(), date1, date2, cb2.getValue().getIdSite());
-        valueQteTotale.set("Quantité totale récupérée : " + String.valueOf(de.getMapDechetsEnleves().get(0)));
+        //de.setMapDechetsEnleves(de.getMapDechetsEnleves());
+        Map map = de.getMapDechetsEnleves();
+        Map.Entry<TypeDechet, Long> entry = (Map.Entry<TypeDechet, Long>) map.entrySet().iterator().next();
+        //valueQteTotale.set(entry.getValue().toString());
+        String s = entry.getValue().toString();
+        valueQteTotale.set("Quantité totale récupérée : " + s);
         labelqteTotale.textProperty().bind(Bindings.convert(valueQteTotale));
         //listDemandes.getItems().add(d.getIddemande() + " - " + d.getDatedemande());
     }
@@ -426,6 +417,7 @@ public class DashboardController {
                 d.setIdTournee(rs.getLong(5));
                 d.setWebON(rs.getString(6));
                 d.setIdSite(rs.getInt(7));
+                //listDemandesNA.getItems().add(d);
                 listedemandes.add(d);
             }
             connexion.close();
@@ -510,6 +502,7 @@ public class DashboardController {
 
 
     // Affectation des tournées
+    /*
     public void affectTournees(Date datedemandee) {
         // Inscription dans une tournée déjà créée pour la date demandée
         try {
@@ -522,7 +515,7 @@ public class DashboardController {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     public TypeDechet getTypeDechetById(int idTypeDechet) {
         try {

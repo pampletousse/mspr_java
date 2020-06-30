@@ -64,9 +64,15 @@
                                 </AnchorPane>
                             </content>
                         </Tab>
-                        <Tab text="Tournées">
+                        <Tab text="Non affectées">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <ListView fx:id="listeDemandesNA" layoutX="61.0" layoutY="108.0"
+                                                  prefHeight="187.0" prefWidth="358.0"/>
+                                        <Label layoutX="61.0" layoutY="74.0" text="Demandes non affectées :"/>
+                                    </children>
+                                </AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Déchêts">
@@ -83,7 +89,7 @@
                                         <ChoiceBox fx:id="cb2" layoutX="195.0" layoutY="62.0" prefWidth="150.0"/>
                                         <Label layoutX="14.0" layoutY="112.0" text="De"/>
                                         <DatePicker fx:id="datePicker2" layoutX="57.0" layoutY="108.0"/>
-                                        <Label fx:id="qteTotale" layoutX="39.0" layoutY="248.0"
+                                        <Label fx:id="labelqteTotale" layoutX="39.0" layoutY="248.0"
                                                text="Qyantité totale récoltée :"/>
                                         <DatePicker fx:id="datePicker3" layoutX="270.0" layoutY="108.0"/>
                                     </children>

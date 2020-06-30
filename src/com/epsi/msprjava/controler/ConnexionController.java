@@ -2,7 +2,6 @@ package com.epsi.msprjava.controler;
 
 import com.epsi.msprjava.bdd.OracleConnexion;
 import com.epsi.msprjava.model.Employe;
-import com.epsi.msprjava.scenes.Dashboard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,7 +12,6 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 
 public class ConnexionController {
