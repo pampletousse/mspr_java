@@ -166,6 +166,10 @@ public class DashboardController {
         }
 
         List<Site> ls = getSites();
+        Site defaultSite = new Site();
+        defaultSite.setIdSite(-1);
+        defaultSite.setNomsite("Tous");
+        cb2.getItems().add(defaultSite);
         for (Site s : ls) {
             cb2.setConverter(new SiteStringConverter());
             cb2.getItems().add(s);
@@ -482,8 +486,9 @@ public class DashboardController {
             stmt.setInt(1, idTypeDechet);
             stmt.setDate(2, dateDebut);
             stmt.setDate(3, dateFin);
-            stmt.setInt(4, idSite);
-
+            if (idSite != -1) {
+                stmt.setInt(4, idSite);
+            }
             ResultSet rs = stmt.executeQuery();
             DechetsEnleves dechetsEnleves = new DechetsEnleves();
             itemsDechet.clear();
